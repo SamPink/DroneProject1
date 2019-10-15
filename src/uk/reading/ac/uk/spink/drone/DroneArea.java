@@ -8,6 +8,7 @@ public class DroneArea {
     int sizeX;
     int sizeY;
 
+    //Change
     List<Drone> drones = new ArrayList<Drone>();
 
     public DroneArea(int x, int y){
