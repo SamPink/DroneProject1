@@ -13,8 +13,8 @@ public class Drone {
         this.positionY = y;
     }
 
-    public String isHere(){
-        return "Im at " + this.positionX + " X and " + this.positionY + " Y";
+    public boolean isHere(int x, int y){
+        return this.positionX == x && this.positionY == y;
     }
 
     public void displayDrone(){
