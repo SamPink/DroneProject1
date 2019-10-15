@@ -10,7 +10,8 @@ public class Main {
 
         System.out.println(d1.toString());
 
-        DroneArea d = new DroneArea(10,20);
+        DroneArena d = new DroneArena(10,20);
+
         d.addDrone();
         d.addDrone();
         d.addDrone();
