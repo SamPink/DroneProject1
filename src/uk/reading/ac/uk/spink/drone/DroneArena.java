@@ -6,6 +6,15 @@ import java.util.Random;
 
 public class DroneArena {
     int sizeX;
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
     int sizeY;
 
     List<Drone> drones = new ArrayList<Drone>();
@@ -24,7 +33,8 @@ public class DroneArena {
         Random r1 = new Random();
         int xPosition = r1.nextInt(this.sizeX)+1;
         int yPosition = r1.nextInt(this.sizeY)+1;
-        if(getDroneAt(xPosition, yPosition) == null){
+        if(getDroneAt(xPosition, yPosition) == null
+                && xPosition < this.sizeX-1 && yPosition < this.sizeY-1){
             Drone d1 = new Drone(xPosition, yPosition);
             drones.add(d1);
         }else{

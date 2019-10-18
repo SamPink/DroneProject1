@@ -7,8 +7,10 @@ public class Main {
         DroneArena d = new DroneArena(10,20);
         ConsoleCanvas c = new ConsoleCanvas(10, 20);
 
-        d.addDrone(3,4);
-        d.addDrone(5,4);
+        for (int i = 0; i < 40; i++) {
+            d.addDrone();
+        }
+
 
         d.showDrones(c);
         System.out.println(c.toString());
