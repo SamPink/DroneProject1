@@ -13,7 +13,7 @@ public class Main {
         DroneArena d = new DroneArena(10,20);
 
         d.addDrone();
-        d.addDrone();
+        d.addDrone(10,10);
         d.addDrone();
         System.out.println(d.toString());
     }

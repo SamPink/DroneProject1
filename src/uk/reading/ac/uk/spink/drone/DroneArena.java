@@ -32,6 +32,15 @@ public class DroneArena {
         }
     }
 
+    public void addDrone(int x, int y){
+        if(getDroneAt(x, y) == null){
+            Drone d1 = new Drone(x, y);
+            drones.add(d1);
+        }else{
+            System.out.println("Done already exists here");
+        }
+    }
+
     public String toString(){
         String s;
         s = "The drone area is "+this.sizeX+","+this.sizeY;
