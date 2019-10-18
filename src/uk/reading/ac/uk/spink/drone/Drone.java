@@ -5,12 +5,13 @@ public class Drone {
     int positionY;
 
     int ID;
-    int Direction;
+    Direction direction;
 
     //Drone constructor
-    public Drone(int x, int y){
+    public Drone(int x, int y, Direction d){
         this.positionX = x;
         this.positionY = y;
+        this.direction = Direction.getRandom();
     }
     public Drone(){
 
@@ -25,7 +26,9 @@ public class Drone {
     }
 
     public String toString(){
-        return "Drone " + this.ID + " is at " + this.positionX + " X and " + this.positionY + " Y";
+        return "Drone " + this.ID +
+                " is at " + this.positionX +" X and " +this.positionY +" Y"+
+                " and is facing";
     }
 
     public void displayDrone(ConsoleCanvas c){

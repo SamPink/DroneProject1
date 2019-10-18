@@ -25,7 +25,7 @@ public class DroneArena {
     }
 
     public void addDroneMiddle(){
-        Drone d1 = new Drone(this.sizeX/2, this.sizeY/2);
+        Drone d1 = new Drone(this.sizeX/2, this.sizeY/2, Direction.getRandom());
         drones.add(d1);
     }
 
@@ -35,16 +35,16 @@ public class DroneArena {
         int yPosition = r1.nextInt(this.sizeY)+1;
         if(getDroneAt(xPosition, yPosition) == null
                 && xPosition < this.sizeX-1 && yPosition < this.sizeY-1){
-            Drone d1 = new Drone(xPosition, yPosition);
+            Drone d1 = new Drone(xPosition, yPosition, Direction.getRandom());
             drones.add(d1);
         }else{
              System.out.println("Done already exists here");
         }
     }
 
-    public void addDrone(int x, int y){
+    public void addDrone(int x, int y, Direction d){
         if(getDroneAt(x, y) == null){
-            Drone d1 = new Drone(x, y);
+            Drone d1 = new Drone(x, y, d);
             drones.add(d1);
         }else{
             System.out.println("Done already exists here");
@@ -55,7 +55,8 @@ public class DroneArena {
         String s;
         s = "The drone area is "+this.sizeX+","+this.sizeY;
         for (int i = 0; i <drones.size() ; i++) {
-            s+= "\n\t Drone "+i+" is at "+drones.get(i).positionX+","+drones.get(i).positionY;
+            s+= "\n\t Drone "+i+" is at "+drones.get(i).positionX+","+drones.get(i).positionY+
+                    ", facing "+drones.get(i).direction;
         }
         s+="\n";
 
