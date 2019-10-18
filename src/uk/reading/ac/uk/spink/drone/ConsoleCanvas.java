@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 public class ConsoleCanvas {
 
-    char [][] box = new char[10][20];
+    private int row = 10;
+    private int col = 20;
+    char [][] box = new char[row][col];
 
     public ConsoleCanvas(int row, int col) {
         for (int i = 0; i < row; i++) { //Rows
@@ -23,22 +25,24 @@ public class ConsoleCanvas {
 
     public static void main(String[] args) {
         ConsoleCanvas c = new ConsoleCanvas(10, 20);
-        System.out.println(c.printBox());
-        //c.showIt(4,3,"d");
+        c.showIt(4,3,"d");
+        System.out.println(c.toString());
     }
 
-    private String printBox() {
+    void showIt(int x, int y, String d) {
+        if (x != 0 || x != row-1 || y != 0 || y != col-1){
+            box[x][y] = 'd';
+        }
+    }
+
+    public String toString() {
         String map ="";
-        for (int i = 0; i <10 ; i++) {
-            for (int j = 0; j <20 ; j++) {
+        for (int i = 0; i <row ; i++) {
+            for (int j = 0; j <col ; j++) {
                 map += box[i][j];
             }
             map += "\n";
         }
         return map;
-    }
-
-
-    private void showIt(int i, int i1, String d) {
     }
 }

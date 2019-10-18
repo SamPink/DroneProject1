@@ -12,6 +12,9 @@ public class Drone {
         this.positionX = x;
         this.positionY = y;
     }
+    public Drone(){
+
+    }
 
     public boolean isHere(int x, int y){
         return this.positionX == x && this.positionY == y;
@@ -24,4 +27,9 @@ public class Drone {
     public String toString(){
         return "Drone " + this.ID + " is at " + this.positionX + " X and " + this.positionY + " Y";
     }
+
+    public void displayDrone(ConsoleCanvas c){
+        c.showIt(this.positionX, this.positionY, "d");
+    }
+
 }

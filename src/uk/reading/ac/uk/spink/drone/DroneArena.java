@@ -60,4 +60,10 @@ public class DroneArena {
         }
         return null;
     }
+
+    public void showDrones( ConsoleCanvas c){
+        for (Drone d:drones) {
+            d.displayDrone(c);
+        }
+    }
 }
