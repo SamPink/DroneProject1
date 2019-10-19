@@ -8,11 +8,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DroneArena d = new DroneArena(80,80);
+        DroneArena d = new DroneArena(10,10);
         ConsoleCanvas c = new ConsoleCanvas(d.getSizeX(), d.getSizeY());
         ArenaStorage store = new ArenaStorage();
 
-        for (int i = 0; i < 20; i++) d.addDrone();
+        for (int i = 0; i < 90; i++){
+            d.addDrone();
+        }
+
         d.moveAllDrones(d);
 
         JSONObject jo = store.objectToJson(d);

@@ -12,6 +12,18 @@ public class DroneArena {
         return sizeX;
     }
 
+    public int maxPossibleDrones() {
+        return (getSizeX()-2) * (getSizeY()-2);
+    }
+
+    public boolean canAddDrone() {
+        if(getDronesCount() < maxPossibleDrones()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public int getDronesCount() {
         return drones.size();
     }
@@ -38,21 +50,24 @@ public class DroneArena {
         Random r1 = new Random();
         int xPosition = r1.nextInt(this.sizeX)+1;
         int yPosition = r1.nextInt(this.sizeY)+1;
-        if(getDroneAt(xPosition, yPosition) == null
-                && xPosition < this.sizeX-1 && yPosition < this.sizeY-1){
-            Drone d1 = new Drone(xPosition, yPosition, Direction.getRandom(), this.getDronesCount()+1);
-            drones.add(d1);
-        }else{
-             System.out.println("Done already exists here");
-        }
+
+        addDrone(xPosition, yPosition);
     }
 
     public void addDrone(int x, int y){
-        if(getDroneAt(x, y) == null){
+        if(getDroneAt(x, y) == null && x < this.sizeX-1 && y < this.sizeY-1){
             Drone d1 = new Drone(x, y, Direction.getRandom(),this.getDronesCount()+1);
             drones.add(d1);
         }else{
-            System.out.println("Done already exists here");
+            try{
+                if(canAddDrone()){
+                    addDrone();
+                }else{
+                    throw new Exception("Arena is full!");
+                }
+            }catch (Exception ex){
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
