@@ -17,7 +17,7 @@ class DroneInterface {
 
         char ch = ' ';
         do {
-            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones or e(X)it > ");
+            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones 10 times, or e(X)it > ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -33,14 +33,27 @@ class DroneInterface {
                     break;
                 case 'd':
                 case 'D':
-                    toDisplay();
+                    this.toDisplay();
+                    break;
                 case 'm':
                 case 'M':
-                    myArena.moveAllDrones(myArena);
+                    try {
+                        xMoves(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
             }
         } while (ch != 'X');						// test if end
 
         s.close();									// close scanner
+    }
+
+    void xMoves(int times) throws InterruptedException {
+        for (int i = 0; i < times; i++) {
+            myArena.moveAllDrones(myArena);
+            toDisplay();
+            Thread.sleep(200,1);
+        }
     }
 
     void toDisplay() {

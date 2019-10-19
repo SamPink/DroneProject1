@@ -93,4 +93,16 @@ public class DroneArena {
            d.tryToMove(this);
         }
     }
+
+    public void moveAllDrones(DroneArena area, int times){
+        for (Drone d:drones) {
+            for (int i = 0; i < times; i++) {
+                try{
+                    d.tryToMove(this);
+                }catch (Exception es){
+                    es.printStackTrace();
+                }
+            }
+        }
+    }
 }

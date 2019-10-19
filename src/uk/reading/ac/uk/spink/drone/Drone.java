@@ -58,15 +58,7 @@ public class Drone {
             this.positionY = ny;
             return true;
         }else{
-            if(this.direction == Direction.North){
-                this.direction = Direction.East;
-            }else  if(this.direction == Direction.East){
-                    this.direction = Direction.South;
-            }else if(this.direction == Direction.South){
-                this.direction = Direction.West;
-            }else {
-                this.direction = Direction.North;
-            }
+            this.direction = direction.next(this.direction);
             return false;
         }
     }
