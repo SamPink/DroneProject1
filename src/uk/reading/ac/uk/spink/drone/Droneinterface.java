@@ -17,7 +17,7 @@ class DroneInterface {
 
         char ch = ' ';
         do {
-            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones 10 times, or e(X)it > ");
+            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones 10 times, (B)ild new arena, or e(X)it > ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -42,6 +42,12 @@ class DroneInterface {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                case 'b':
+                case 'B':
+                   makeNewBuilding();
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + ch);
             }
         } while (ch != 'X');						// test if end
 
@@ -62,6 +68,24 @@ class DroneInterface {
         System.out.println(c.toString());
     }
 
+    public DroneArena makeNewBuilding(){
+        int x,y;
+        Scanner sc = new Scanner(System.in);  // Create a Scanner object
+        System.out.print("Enter x,y for new building size (x,y): ");
+        String params = sc.nextLine();  // Read user input
+
+        try{
+           String[] p1 = params.split(",");
+           x = Integer.parseInt(p1[0].trim());
+           y = Integer.parseInt(p1[1].trim());
+            this.myArena = new DroneArena(x,y);
+            return myArena;
+        } catch (Exception ex){
+            System.out.println("value entered incorrectly, creating default size");
+            this.myArena = new DroneArena();
+            return myArena;
+        }
+    }
 
     public static void main(String[] args) {
         DroneInterface r = new DroneInterface();	// just call the interface

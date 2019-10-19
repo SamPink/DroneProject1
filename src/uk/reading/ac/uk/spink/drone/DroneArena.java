@@ -19,6 +19,10 @@ public class DroneArena {
 
     List<Drone> drones = new ArrayList<Drone>();
 
+    public DroneArena(){
+       new DroneArena(10,20);
+    }
+
     public DroneArena(int x, int y){
         this.sizeX = x;
         this.sizeY = y;
@@ -105,4 +109,5 @@ public class DroneArena {
             }
         }
     }
+
 }

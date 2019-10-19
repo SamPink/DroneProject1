@@ -4,11 +4,18 @@ import java.util.Arrays;
 
 public class ConsoleCanvas {
 
-    private int row = 10;
-    private int col = 20;
-    char [][] box = new char[row][col];
+    private int row;
+    private int col ;
+    char [][] box;
+
+    public ConsoleCanvas(){
+      new ConsoleCanvas(10,20);
+    }
 
     public ConsoleCanvas(int row, int col) {
+        this.row = row;
+        this.col = col;
+        box = new char[row][col];
         for (int i = 0; i < row; i++) { //Rows
             for (int j = 0; j < col; j++) { //Columns
                 if (i == 0 || i == row-1 || j == 0 || j == col-1){
