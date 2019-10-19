@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Iterator;
 
 public class ArenaStorage {
 
@@ -34,6 +35,36 @@ public class ArenaStorage {
         return obj;
     }
 
+    public DroneArena JsonToObject(JSONObject jo){
+        DroneArena d1;
+        try{
+            int x = (int) jo.get("areaX");
+            int y = (int) jo.get("areaY");
+            d1 = new DroneArena(x,y);
+            JSONArray drones = (JSONArray) jo.get("Drones");
+            for (int i = 0; i <drones.size() ; i++) {
+                JSONObject droneObj = (JSONObject) drones.get(i);
+                int droneId = (int)droneObj.get("id");
+                int xPos = (int)droneObj.get("xPos");
+                int yPos = (int)droneObj.get("yPos");
+                //TODo import the Enum direction into the class (get it to cast)
+                //Direction dir = (Direction) droneObj.get("direction");
+
+                d1.addDrone(xPos, yPos);
+
+                if(d1.drones.get(i).ID != droneId){
+                    throw new Exception("Failed to add drone");
+                }else{
+                    //TODo once imported put it in drone object
+                }
+            }
+        }catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
+        return d1;
+    }
+
     public void writeToFile(JSONObject js, String fileName){
         try{
             fileName+=".txt";
@@ -44,6 +75,13 @@ public class ArenaStorage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public JSONObject readFromFile(String file){
+        //ToDO import txt file
+        JSONObject jo = new  JSONObject();
+
+        return jo;
     }
 
     public void main(String[] args) {

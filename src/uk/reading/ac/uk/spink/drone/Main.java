@@ -8,11 +8,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DroneArena d = new DroneArena(10,10);
+        DroneArena d = new DroneArena(20,20);
         ConsoleCanvas c = new ConsoleCanvas(d.getSizeX(), d.getSizeY());
         ArenaStorage store = new ArenaStorage();
 
-        for (int i = 0; i < 90; i++){
+        for (int i = 0; i < 8; i++){
             d.addDrone();
         }
 
@@ -24,5 +24,8 @@ public class Main {
         }else{
             System.out.println("File invalid");
         }
+
+        DroneArena d2 = store.JsonToObject(jo);
+        System.out.println(d2.toString());
     }
 }

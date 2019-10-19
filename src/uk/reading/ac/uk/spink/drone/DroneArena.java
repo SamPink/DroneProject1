@@ -54,6 +54,7 @@ public class DroneArena {
         addDrone(xPosition, yPosition);
     }
 
+
     public void addDrone(int x, int y){
         if(getDroneAt(x, y) == null && x < this.sizeX-1 && y < this.sizeY-1){
             Drone d1 = new Drone(x, y, Direction.getRandom(),this.getDronesCount()+1);
@@ -125,5 +126,4 @@ public class DroneArena {
             }
         }
     }
-
 }
