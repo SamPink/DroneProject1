@@ -6,19 +6,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DroneArena d = new DroneArena(10,20);
-        ConsoleCanvas c = new ConsoleCanvas(10, 20);
+        DroneArena d = new DroneArena(80,80);
+        ConsoleCanvas c = new ConsoleCanvas(d.getSizeX(), d.getSizeY());
+        ArenaStorage store = new ArenaStorage();
 
-        for (int i = 0; i < 3; i++) {
-            d.addDrone();
-        }
-
-        System.out.println(d.toString());
-        d.showDrones(c);
-        System.out.println(c.toString());
-
-        d.showDrones(c);
+        for (int i = 0; i < 20; i++) d.addDrone();
         d.moveAllDrones(d);
-        d.showDrones(c);
+
+        store.objectToJson(d);
     }
 }

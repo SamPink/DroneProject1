@@ -7,14 +7,15 @@ public class Drone {
     int positionX;
     int positionY;
 
-    int ID;
+    int ID = 0;
     Direction direction;
 
     //Drone constructor
-    public Drone(int x, int y, Direction d){
+    public Drone(int x, int y, Direction d, int id){
         this.positionX = x;
         this.positionY = y;
         this.direction = Direction.getRandom();
+        this.ID = id;
     }
     public Drone(){
 

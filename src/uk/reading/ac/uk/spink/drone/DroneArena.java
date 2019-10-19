@@ -5,19 +5,20 @@ import java.util.List;
 import java.util.Random;
 
 public class DroneArena {
-    int sizeX;
+    int sizeX, sizeY;
+    List<Drone> drones = new ArrayList<Drone>();
 
     public int getSizeX() {
         return sizeX;
     }
 
+    public int getDronesCount() {
+        return drones.size();
+    }
+
     public int getSizeY() {
         return sizeY;
     }
-
-    int sizeY;
-
-    List<Drone> drones = new ArrayList<Drone>();
 
     public DroneArena(){
        new DroneArena(10,20);
@@ -29,7 +30,7 @@ public class DroneArena {
     }
 
     public void addDroneMiddle(){
-        Drone d1 = new Drone(this.sizeX/2, this.sizeY/2, Direction.getRandom());
+        Drone d1 = new Drone(this.sizeX/2, this.sizeY/2, Direction.getRandom(),this.getDronesCount()+1);
         drones.add(d1);
     }
 
@@ -39,7 +40,7 @@ public class DroneArena {
         int yPosition = r1.nextInt(this.sizeY)+1;
         if(getDroneAt(xPosition, yPosition) == null
                 && xPosition < this.sizeX-1 && yPosition < this.sizeY-1){
-            Drone d1 = new Drone(xPosition, yPosition, Direction.getRandom());
+            Drone d1 = new Drone(xPosition, yPosition, Direction.getRandom(), this.getDronesCount()+1);
             drones.add(d1);
         }else{
              System.out.println("Done already exists here");
@@ -48,7 +49,7 @@ public class DroneArena {
 
     public void addDrone(int x, int y){
         if(getDroneAt(x, y) == null){
-            Drone d1 = new Drone(x, y, Direction.getRandom());
+            Drone d1 = new Drone(x, y, Direction.getRandom(),this.getDronesCount()+1);
             drones.add(d1);
         }else{
             System.out.println("Done already exists here");

@@ -46,12 +46,21 @@ class DroneInterface {
                 case 'B':
                    makeNewBuilding();
                     break;
+                case 's':
+                case 'S':
+                    saveArenaToFile();
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + ch);
             }
         } while (ch != 'X');						// test if end
 
         s.close();									// close scanner
+    }
+
+    private void saveArenaToFile() {
+        //current drone area is at this.myArena
+        System.out.println(this.myArena.toString());
     }
 
     void xMoves(int times) throws InterruptedException {
