@@ -1,5 +1,7 @@
 package uk.reading.ac.uk.spink.drone;
 
+import org.json.simple.JSONObject;
+
 import java.util.Random;
 
 public class Main {
@@ -13,6 +15,11 @@ public class Main {
         for (int i = 0; i < 20; i++) d.addDrone();
         d.moveAllDrones(d);
 
-        store.objectToJson(d);
+        JSONObject jo = store.objectToJson(d);
+        if(jo != null){
+            store.writeToFile(jo, "file");
+        }else{
+            System.out.println("File invalid");
+        }
     }
 }

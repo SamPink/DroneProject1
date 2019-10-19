@@ -1,11 +1,14 @@
 package uk.reading.ac.uk.spink.drone;
 
+import org.json.simple.JSONObject;
+
 import java.util.Scanner;
 
 class DroneInterface {
 
     private Scanner s;								// scanner used for input from user
     private DroneArena myArena;				// arena in which drones are shown
+    private  ArenaStorage store;
     /**
      * constructor for DroneInterface
      * sets up scanner used for input and the arena
@@ -14,10 +17,11 @@ class DroneInterface {
     public DroneInterface() {
         s = new Scanner(System.in);			// set up scanner for user input
         myArena = new DroneArena(10, 20);	// create arena of size 20*6
+        store = new ArenaStorage();
 
         char ch = ' ';
         do {
-            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones 10 times, (B)ild new arena, or e(X)it > ");
+            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones 10 times, (B)ild new arena, (S)ave arena, or e(X)it > ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -42,13 +46,14 @@ class DroneInterface {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    break;
                 case 'b':
                 case 'B':
                    makeNewBuilding();
                     break;
                 case 's':
                 case 'S':
-                    saveArenaToFile();
+                    storeArena();
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + ch);
@@ -58,10 +63,22 @@ class DroneInterface {
         s.close();									// close scanner
     }
 
-    private void saveArenaToFile() {
-        //current drone area is at this.myArena
-        System.out.println(this.myArena.toString());
+    void storeArena(){
+        try{
+            Scanner sc = new Scanner(System.in);  // Create a Scanner object
+            System.out.print("Enter the file name for the arena: ");
+            String params = sc.nextLine();  // Read user input
+            JSONObject jo = store.objectToJson(myArena);
+            if(jo != null){
+                store.writeToFile(jo, params.trim());
+            }else{
+                throw new Exception("Failed to store arena");
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
+
 
     void xMoves(int times) throws InterruptedException {
         for (int i = 0; i < times; i++) {

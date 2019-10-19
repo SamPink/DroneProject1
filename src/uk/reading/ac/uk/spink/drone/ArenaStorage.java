@@ -3,9 +3,13 @@ package uk.reading.ac.uk.spink.drone;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+
 public class ArenaStorage {
 
-    public void objectToJson(DroneArena d){
+    public JSONObject objectToJson(DroneArena d){
         JSONObject obj = new JSONObject();
         obj.put("areaX", d.getSizeX());
         obj.put("areaY", d.getSizeY());
@@ -23,11 +27,23 @@ public class ArenaStorage {
                 arr.add(i, droneObj);
             }catch (Exception ex){
                 ex.printStackTrace();
-                continue;
+                return null;
             }
             obj.put("Drones",arr);
         }
-        System.out.println(obj.toJSONString());
+        return obj;
+    }
+
+    public void writeToFile(JSONObject js, String fileName){
+        try{
+            fileName+=".txt";
+            FileWriter f = new FileWriter(fileName);
+            f.write(js.toJSONString());
+            f.flush();
+            System.out.println(f.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void main(String[] args) {
