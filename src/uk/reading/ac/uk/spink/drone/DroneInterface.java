@@ -49,7 +49,7 @@ class DroneInterface {
                     break;
                 case 'b':
                 case 'B':
-                   makeNewBuilding();
+                    makeNewBuilding();
                     break;
                 case 's':
                 case 'S':
@@ -101,9 +101,9 @@ class DroneInterface {
         String params = sc.nextLine();  // Read user input
 
         try{
-           String[] p1 = params.split(",");
-           x = Integer.parseInt(p1[0].trim());
-           y = Integer.parseInt(p1[1].trim());
+            String[] p1 = params.split(",");
+            x = Integer.parseInt(p1[0].trim());
+            y = Integer.parseInt(p1[1].trim());
             this.myArena = new DroneArena(x,y);
             return myArena;
         } catch (Exception ex){
