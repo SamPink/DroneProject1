@@ -1,5 +1,8 @@
 package uk.reading.ac.uk.spink.drone;
 
+import javax.swing.*;
+import java.util.Random;
+
 public class Drone {
     int positionX;
     int positionY;
@@ -35,4 +38,36 @@ public class Drone {
         c.showIt(this.positionX, this.positionY, "d");
     }
 
+    public boolean tryToMove(DroneArena area){
+        int nx = this.positionX;
+        int ny = this.positionY;
+
+        Direction random = Direction.getRandom();
+        if(random == Direction.North){
+                ny++;
+        }else if(random == Direction.East){
+                nx++;
+        }else if(random == Direction.South){
+                ny--;
+        }else if(random == Direction.West){
+                nx--;
+        }
+
+        if(area.canMoveHere(nx, ny)){
+            this.positionX = nx;
+            this.positionY = ny;
+            return true;
+        }else{
+            if(this.direction == Direction.North){
+                this.direction = Direction.East;
+            }else  if(this.direction == Direction.East){
+                    this.direction = Direction.South;
+            }else if(this.direction == Direction.South){
+                this.direction = Direction.West;
+            }else {
+                this.direction = Direction.North;
+            }
+            return false;
+        }
+    }
 }

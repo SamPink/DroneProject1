@@ -42,9 +42,9 @@ public class DroneArena {
         }
     }
 
-    public void addDrone(int x, int y, Direction d){
+    public void addDrone(int x, int y){
         if(getDroneAt(x, y) == null){
-            Drone d1 = new Drone(x, y, d);
+            Drone d1 = new Drone(x, y, Direction.getRandom());
             drones.add(d1);
         }else{
             System.out.println("Done already exists here");
@@ -75,6 +75,22 @@ public class DroneArena {
     public void showDrones( ConsoleCanvas c){
         for (Drone d:drones) {
             d.displayDrone(c);
+        }
+    }
+
+    public boolean canMoveHere(int x, int y){
+       if( x < this.sizeX-1 && y < this.sizeY-1
+               && x != 0 && y != 0
+               && getDroneAt(x,y) ==  null){
+           return true;
+       }else{
+           return false;
+       }
+    }
+
+    public void moveAllDrones(DroneArena area){
+        for (Drone d:drones) {
+           d.tryToMove(this);
         }
     }
 }

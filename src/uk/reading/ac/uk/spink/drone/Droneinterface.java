@@ -17,7 +17,7 @@ class DroneInterface {
 
         char ch = ' ';
         do {
-            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones or e(X)it > ");
+            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones or e(X)it > ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -34,6 +34,9 @@ class DroneInterface {
                 case 'd':
                 case 'D':
                     toDisplay();
+                case 'm':
+                case 'M':
+                    myArena.moveAllDrones(myArena);
             }
         } while (ch != 'X');						// test if end
 
