@@ -9,6 +9,7 @@ class DroneInterface {
     private Scanner s;								// scanner used for input from user
     private DroneArena myArena;				// arena in which drones are shown
     private  ArenaStorage store;
+    private Direction direction;
     /**
      * constructor for DroneInterface
      * sets up scanner used for input and the arena

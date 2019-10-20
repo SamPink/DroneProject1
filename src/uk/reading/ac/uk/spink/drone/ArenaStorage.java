@@ -7,69 +7,70 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.util.Iterator;
 
 public class ArenaStorage {
 
-    public JSONObject objectToJson(DroneArena d){
+    // takes a drone area object, and converts it a Json object
+    JSONObject objectToJson(DroneArena d){
         JSONObject obj = new JSONObject();
         obj.put("areaX", d.getSizeX());
         obj.put("areaY", d.getSizeY());
 
         JSONArray arr = new JSONArray();
-        for (int i = 0; i < d.drones.size(); i++) {
+        //loops through each drone stored in drones array
+        for (int i = 0; i < d.getDronesCount(); i++) {
             JSONObject droneObj = new JSONObject();
             try{
-                Drone tmpDrone = d.drones.get(i);
-                droneObj.put("id", (int)tmpDrone.ID);
-                droneObj.put("xPos", (int)tmpDrone.positionX);
-                droneObj.put("yPos", tmpDrone.positionY);
-                droneObj.put("direction", tmpDrone.direction.toString());
+                Drone tmpDrone = d.getDrones().get(i);
+                droneObj.put("id", tmpDrone.getID());
+                droneObj.put("xPos", (int)tmpDrone.getPositionX());
+                droneObj.put("yPos", tmpDrone.getPositionY());
+                droneObj.put("direction", tmpDrone.getDirection().toString());
 
+                //adds drone object to drones array
                 arr.add(i, droneObj);
             }catch (Exception ex){
                 ex.printStackTrace();
                 return null;
             }
+            //adds all drones into json object
             obj.put("Drones",arr);
         }
         return obj;
     }
 
-    public DroneArena JsonToObject(JSONObject jo){
+    // takes json file and converts it to DroneArea with all drones
+    DroneArena JsonToObject(JSONObject jo){
         DroneArena d1;
         try{
             Long x = (Long) jo.get("areaX");
             Long y = (Long) jo.get("areaY");
-            //works because x and y are seens as longs. so cast back to ints
-            //TODO fix this
+
+            //Create new drone arena with x,y from json
             d1 = new DroneArena(x.intValue(),y.intValue());
+
             JSONArray drones = (JSONArray) jo.get("Drones");
+            //loops through each drone in json array
             for (int i = 0; i <drones.size() ; i++) {
                 JSONObject droneObj = (JSONObject) drones.get(i);
-                Long droneId = (Long) droneObj.get("id");
                 Long xPos = (Long) droneObj.get("xPos");
                 Long yPos = (Long) droneObj.get("yPos");
-                //TODo import the Enum direction into the class (get it to cast)
-                //Direction dir = (Direction) droneObj.get("direction");
+                String dir = (String) droneObj.get("direction");
+                Direction d = Direction.fromString(dir);
 
-                d1.addDrone(xPos.intValue(), yPos.intValue());
-
-                if(d1.drones.get(i).ID != droneId){
-                    throw new Exception("Failed to add drone");
-                }else{
-                    //TODo once imported put it in drone object
-                }
+                //adds drone to arena
+                d1.addDrone(xPos.intValue(), yPos.intValue(), d);
             }
         }catch (Exception ex) {
             System.out.println(ex.getMessage());
             return null;
         }
+        System.out.println("Loaded");
         return d1;
     }
 
-    public void writeToFile(JSONObject js, String fileName){
+    //writes json file to specified file in working directory
+    void writeToFile(JSONObject js, String fileName){
         try{
             fileName+=".txt";
             FileWriter f = new FileWriter(fileName);
@@ -81,8 +82,8 @@ public class ArenaStorage {
         }
     }
 
-    public JSONObject readFromFile(String file){
-        //ToDO import txt file
+    // reads json object from specified file
+    JSONObject readFromFile(String file){
         JSONParser parser = new JSONParser();
         try{
             Object ob1 = parser.parse(new FileReader(file+".txt"));
@@ -92,14 +93,5 @@ public class ArenaStorage {
             ex.printStackTrace();
             return null;
         }
-    }
-
-    public void main(String[] args) {
-        DroneArena d = new DroneArena(10,20);
-        d.addDrone();
-        d.addDrone();
-
-        objectToJson(d);
-
     }
 }

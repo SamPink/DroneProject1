@@ -1,1 +1,0 @@
-{"areaY":20,"areaX":10,"Drones":[{"yPos":3,"id":1,"xPos":5,"direction":"South"}]}
