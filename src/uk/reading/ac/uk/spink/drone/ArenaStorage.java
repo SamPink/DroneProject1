@@ -2,7 +2,9 @@ package uk.reading.ac.uk.spink.drone;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,8 +22,8 @@ public class ArenaStorage {
             JSONObject droneObj = new JSONObject();
             try{
                 Drone tmpDrone = d.drones.get(i);
-                droneObj.put("id", tmpDrone.ID);
-                droneObj.put("xPos", tmpDrone.positionX);
+                droneObj.put("id", (int)tmpDrone.ID);
+                droneObj.put("xPos", (int)tmpDrone.positionX);
                 droneObj.put("yPos", tmpDrone.positionY);
                 droneObj.put("direction", tmpDrone.direction.toString());
 
@@ -38,19 +40,21 @@ public class ArenaStorage {
     public DroneArena JsonToObject(JSONObject jo){
         DroneArena d1;
         try{
-            int x = (int) jo.get("areaX");
-            int y = (int) jo.get("areaY");
-            d1 = new DroneArena(x,y);
+            Long x = (Long) jo.get("areaX");
+            Long y = (Long) jo.get("areaY");
+            //works because x and y are seens as longs. so cast back to ints
+            //TODO fix this
+            d1 = new DroneArena(x.intValue(),y.intValue());
             JSONArray drones = (JSONArray) jo.get("Drones");
             for (int i = 0; i <drones.size() ; i++) {
                 JSONObject droneObj = (JSONObject) drones.get(i);
-                int droneId = (int)droneObj.get("id");
-                int xPos = (int)droneObj.get("xPos");
-                int yPos = (int)droneObj.get("yPos");
+                Long droneId = (Long) droneObj.get("id");
+                Long xPos = (Long) droneObj.get("xPos");
+                Long yPos = (Long) droneObj.get("yPos");
                 //TODo import the Enum direction into the class (get it to cast)
                 //Direction dir = (Direction) droneObj.get("direction");
 
-                d1.addDrone(xPos, yPos);
+                d1.addDrone(xPos.intValue(), yPos.intValue());
 
                 if(d1.drones.get(i).ID != droneId){
                     throw new Exception("Failed to add drone");
@@ -71,7 +75,7 @@ public class ArenaStorage {
             FileWriter f = new FileWriter(fileName);
             f.write(js.toJSONString());
             f.flush();
-            System.out.println(f.toString());
+            System.out.println("Saved");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,9 +83,15 @@ public class ArenaStorage {
 
     public JSONObject readFromFile(String file){
         //ToDO import txt file
-        JSONObject jo = new  JSONObject();
-
-        return jo;
+        JSONParser parser = new JSONParser();
+        try{
+            Object ob1 = parser.parse(new FileReader(file+".txt"));
+            JSONObject oj = (JSONObject) ob1;
+            return oj;
+        }catch (Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public void main(String[] args) {
@@ -90,5 +100,6 @@ public class ArenaStorage {
         d.addDrone();
 
         objectToJson(d);
+
     }
 }

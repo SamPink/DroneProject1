@@ -8,24 +8,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        DroneArena d = new DroneArena(20,20);
+        DroneArena d = new DroneArena(10,10);
         ConsoleCanvas c = new ConsoleCanvas(d.getSizeX(), d.getSizeY());
         ArenaStorage store = new ArenaStorage();
 
-        for (int i = 0; i < 8; i++){
-            d.addDrone();
-        }
+        d.addDrone();
 
-        d.moveAllDrones(d);
+        System.out.println(d.toString());
 
         JSONObject jo = store.objectToJson(d);
-        if(jo != null){
-            store.writeToFile(jo, "file");
-        }else{
-            System.out.println("File invalid");
-        }
 
+        store.writeToFile(jo, "file");
+
+
+        JSONObject oj = store.readFromFile("file");
         DroneArena d2 = store.JsonToObject(jo);
+        //DroneArena d2 = store.JsonToObject(jo);
         System.out.println(d2.toString());
     }
 }

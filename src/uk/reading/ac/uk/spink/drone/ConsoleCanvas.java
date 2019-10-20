@@ -31,7 +31,7 @@ public class ConsoleCanvas {
     }
 
     public static void main(String[] args) {
-        ConsoleCanvas c = new ConsoleCanvas(10, 20);
+        ConsoleCanvas c = new ConsoleCanvas(100, 20);
         c.showIt(4,3,"d");
         System.out.println(c.toString());
     }

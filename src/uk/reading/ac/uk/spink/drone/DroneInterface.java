@@ -21,7 +21,7 @@ class DroneInterface {
 
         char ch = ' ';
         do {
-            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones 10 times, (B)ild new arena, (S)ave arena, or e(X)it > ");
+            System.out.print("Enter (A)dd drone, get (I)nformation, (D)isplay Drones, (M)ove drones 10 times, (B)ild new arena, (S)ave arena, (L)oad arena or e(X)it > ");
             ch = s.next().charAt(0);
             s.nextLine();
             switch (ch) {
@@ -55,12 +55,24 @@ class DroneInterface {
                 case 'S':
                     storeArena();
                     break;
+                case 'l':
+                case 'L':
+                    loadArena();
+                    break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + ch);
             }
         } while (ch != 'X');						// test if end
 
         s.close();									// close scanner
+    }
+
+    void loadArena() {
+        Scanner sc = new Scanner(System.in);  // Create a Scanner object
+        System.out.print("Enter the name for the arena: ");
+        String params = sc.nextLine();
+        JSONObject oj = store.readFromFile(params);
+        myArena = store.JsonToObject(oj);
     }
 
     void storeArena(){

@@ -1,1 +1,1 @@
-{"areaY":20,"areaX":20,"Drones":[{"yPos":15,"id":1,"xPos":18,"direction":"North"},{"yPos":13,"id":2,"xPos":13,"direction":"South"},{"yPos":16,"id":3,"xPos":7,"direction":"North"},{"yPos":4,"id":4,"xPos":7,"direction":"South"},{"yPos":2,"id":5,"xPos":7,"direction":"North"},{"yPos":1,"id":6,"xPos":18,"direction":"South"},{"yPos":3,"id":7,"xPos":2,"direction":"North"},{"yPos":15,"id":8,"xPos":11,"direction":"East"}]}
+{"areaY":10,"areaX":10,"Drones":[{"yPos":3,"id":1,"xPos":5,"direction":"North"}]}
