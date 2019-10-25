@@ -117,6 +117,9 @@ class DroneInterface {
             String[] p1 = params.split(",");
             x = Integer.parseInt(p1[0].trim());
             y = Integer.parseInt(p1[1].trim());
+            if (x < 3 || y < 3) {
+                throw new Exception("Needs to be 3,3 or larger");
+            }
             this.myArena = new DroneArena(x,y);
             return myArena;
         } catch (Exception ex){

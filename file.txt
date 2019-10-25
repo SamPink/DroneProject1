@@ -1,0 +1,1 @@
+{"areaY":20,"},{"yPos":15,"id":2,"xPos":8,"direction":"South"},{"yPos":13,"id":3,"xPos":1,"direction":"North"}]}areaX":10,"Drones":[{"yPos":6,"id":1,"xPos":1,"direction":"North"
