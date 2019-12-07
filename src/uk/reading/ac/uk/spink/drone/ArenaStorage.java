@@ -23,7 +23,7 @@ public class ArenaStorage {
             try{
                 Drone tmpDrone = d.getDrones().get(i);
                 droneObj.put("id", tmpDrone.getID());
-                droneObj.put("xPos", (int)tmpDrone.getPositionX());
+                droneObj.put("xPos", tmpDrone.getPositionX());
                 droneObj.put("yPos", tmpDrone.getPositionY());
                 droneObj.put("direction", tmpDrone.getDirection().toString());
 

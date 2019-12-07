@@ -32,11 +32,7 @@ public class DroneArena {
     }
 
     boolean canAddDrone() {
-        if(getDronesCount() < maxPossibleDrones()) {
-            return true;
-        }else{
-            return false;
-        }
+        return getDronesCount() < maxPossibleDrones();
     }
 
     //Default constructor
@@ -119,14 +115,10 @@ public class DroneArena {
 
     //checks to see if drone can be placed
     boolean canMoveHere(int x, int y){
-        if( x < this.sizeX-1 && y < this.sizeY-1
-               && x != 0 && y != 0
-               && getDroneAt(x,y) ==  null){
-            //if is in bounds of arena and no drone is there
-           return true;
-        }else{
-           return false;
-        }
+        //if is in bounds of arena and no drone is there
+        return x < this.sizeX - 1 && y < this.sizeY - 1
+                && x != 0 && y != 0
+                && getDroneAt(x, y) == null;
     }
 
     //try to move each of the drones

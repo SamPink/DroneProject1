@@ -3,8 +3,12 @@ package uk.reading.ac.uk.spink.droneSimulation;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -71,9 +75,17 @@ public class DroneSimulation extends Application {
         arena.addGameObject(new Drone(), 300, 200);
         arena.addGameObject(new Drone(), 300, 100);
         arena.addGameObject(new Enemy(), 100, 100);
+
         arena.moveDrones();
+        System.out.println("");
 
         stage.show();
+    }
+
+    private Node logToScreen() {
+        Label label = new Label(arena.logToScreen());
+
+        return label;
     }
 
     private void startSimulation() {

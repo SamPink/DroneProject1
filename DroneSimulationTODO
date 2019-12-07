@@ -1,0 +1,15 @@
+#TODO
+fix collision mechanics
+	DroneObject is in bounds
+	TEST - No part of DroneObject touches drone arena
+		   On update call DroneObject.checkForCollisions()
+                call DroneObject.isInbounds()
+                call DroneObject.isColliding()
+                if true
+		   should then call DroneObject.onCollision()
+		    if true
+		        should bounce in direction away from wall
+            else
+                keep going forwards
+
+		   

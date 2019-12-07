@@ -55,8 +55,8 @@ public class Drone {
         this.positionX = x;
         this.positionY = y;
         this.direction = d;
-        this.UID++;
-        this.ID = this.UID;
+        UID++;
+        this.ID = UID;
     }
 
     public Drone(){

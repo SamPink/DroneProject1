@@ -67,19 +67,12 @@ public class Arena {
         root.getChildren().clear();
 
         for (DroneObject d : drones) { //loop through drones to check on bounds
-            if (!d.isInBounds(this)) {
-                d.rotateAngle((int) (d.getView().getRotate() + 90));//if not in bounds rotate 90 degrees
-                d.update();
+            if(d.isColliding(this)){
+                d.onCollision();
             }
-            for (DroneObject dr : drones) {//loop through each drone again to check collisions
-                if (!dr.equals(d) && dr.isColliding(d)) {// of drone is not current drone
-                    d.rotateAngle((int) (d.getView().getRotate() + 90));// turn 90 degrees
-                    d.setVelocity(d.getVelocity().multiply(2));
-                    d.update();
-                }
-            }
-            root.getChildren().add(d.getView());
+
             d.update();
+            root.getChildren().add(d.getView());
         }
     }
 
@@ -88,6 +81,20 @@ public class Arena {
             Random r = new Random();
             drone.rotateAngle(r.nextInt(360));
         }
+    }
+
+    public String logToScreen(){
+        String s = "Drones\n";
+
+        for (DroneObject d: drones) {
+            s += "Drone " + d.getName() +
+            " Speed " + d.getVelocity().toString() +
+            " Position " + d.getX() + "," + d.getY() +
+            "\n";
+        }
+
+
+        return s;
     }
 
     @Override
