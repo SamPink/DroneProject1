@@ -1,7 +1,9 @@
 package uk.reading.ac.uk.spink.droneSimulation;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import uk.reading.ac.uk.spink.droneSimulation.Drones.Drone;
+import uk.reading.ac.uk.spink.droneSimulation.Drones.ImageDrone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +62,7 @@ public class Arena {
     void addGameObject(DroneObject object, double x, double y) {
         object.getView().setTranslateX(x);
         object.getView().setTranslateY(y);
+        object.rotateRandom();
         drones.add(object);
     }
 

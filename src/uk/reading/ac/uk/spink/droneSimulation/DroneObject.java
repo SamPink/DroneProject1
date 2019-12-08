@@ -3,6 +3,7 @@ package uk.reading.ac.uk.spink.droneSimulation;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -14,6 +15,7 @@ public abstract class DroneObject {
     private Point2D velocity;
     private String name;
     private boolean isColliding = false;
+    private DroneObject collidingWith;
 
     public DroneObject(Node view, String name) {
         this.view = view;
@@ -42,6 +44,8 @@ public abstract class DroneObject {
     }
 
     public void setVelocity(Point2D velocity) {
+        System.out.println("Setting " + this.name + " velocity to " + velocity.toString());
+
         this.velocity = velocity;
     }
 
@@ -54,6 +58,14 @@ public abstract class DroneObject {
             System.out.println(this.getName() + " has crashed");
         }
         isColliding = colliding;
+    }
+
+    public DroneObject getCollidingWith() {
+        return collidingWith;
+    }
+
+    public void setCollidingWith(DroneObject collidingWith) {
+        this.collidingWith = collidingWith;
     }
 
     public double getX() {
@@ -103,22 +115,10 @@ public abstract class DroneObject {
         double y = bounds.getMaxY();
 
         setColliding(false);
+        setCollidingWith(null);
 
-        if(x > arena.getSizeX()){
-            //right wall
-            this.isColliding = true;
-        }
-        if(x < 0){
-            //left wall
-            setColliding(true);
-        }
-        if(y > arena.getSizeY()){
-            //top wall
-            setColliding(true);
-        }
-        if(y < 0){
-            //bottom wall
-            setColliding(true);
+        if(x > arena.getSizeX() || x < 0 || y > arena.getSizeY() || y < 0){
+           setColliding(true);
         }
 
         for (DroneObject d: arena.getDrones()) {
@@ -127,6 +127,7 @@ public abstract class DroneObject {
                 if(getView().getBoundsInParent().intersects(d.getView().getBoundsInParent())){
                     //a drone in the arena intersects with current drone
                     setColliding(true);
+                    setCollidingWith(d);
                 }
             }
         }
@@ -135,9 +136,15 @@ public abstract class DroneObject {
     }
 
     public void onCollision() {
-        rotateAngle((int) (getView().getRotate() + 90));// turn 90 degrees
-        setVelocity(getVelocity().multiply(2));
+       setVelocity(new Point2D(getVelocity().getY(), getVelocity().getX()));
+
+        if(getCollidingWith() != null){
+            Point2D velocity = getCollidingWith().getVelocity();
+            setVelocity(velocity);
+        }
     }
+
+    public abstract void render(GraphicsContext gc);
 
     @Override
     public String toString() {
@@ -151,4 +158,5 @@ public abstract class DroneObject {
                 '}';
         return s;
     }
+
 }

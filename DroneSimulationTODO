@@ -12,4 +12,12 @@ fix collision mechanics
             else
                 keep going forwards
 
+
+Different instances fo DroneObject should have different properties
+    Drone
+        Default
+    Enemy
+        speed X 2
+
+
 		   

@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import uk.reading.ac.uk.spink.droneSimulation.Drones.Drone;
 import uk.reading.ac.uk.spink.droneSimulation.Drones.Enemy;
+import uk.reading.ac.uk.spink.droneSimulation.Drones.LongDrone;
 
 import java.util.Random;
 
@@ -72,12 +73,10 @@ public class DroneSimulation extends Application {
         bp.setTop(hBox);
 
         arena.addGameObject(new Drone(), 300, 300);
-        arena.addGameObject(new Drone(), 300, 200);
-        arena.addGameObject(new Drone(), 300, 100);
         arena.addGameObject(new Enemy(), 100, 100);
+        arena.addGameObject(new LongDrone(), 30,50);
 
         arena.moveDrones();
-        System.out.println("");
 
         stage.show();
     }
