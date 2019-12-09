@@ -1,11 +1,8 @@
 package uk.reading.ac.uk.spink.droneSimulation.Drones;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import uk.reading.ac.uk.spink.droneSimulation.DroneObject;
 
 import java.io.FileInputStream;
@@ -22,7 +19,7 @@ public class ImageDrone extends DroneObject {
 
 
     public ImageDrone(String s) {
-        super(new Rectangle(20, 20), "ImageDrone");
+        super("ImageDrone");
         positionX = 0;
         positionY = 0;
         velocityX = 0;

@@ -4,24 +4,35 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Random;
 
 public abstract class DroneObject {
     boolean alive;
     private Node view;
     private Point2D velocity;
+    int posX,posY,velX,velY;
     private String name;
     private boolean isColliding = false;
     private DroneObject collidingWith;
+    private Image image;
 
-    public DroneObject(Node view, String name) {
-        this.view = view;
-        this.velocity = new Point2D(0, 1);
+    public DroneObject(String name) {
+        this.posX = posX;
+        this.posY = posY;
+        this.velX = 1;
+        this.velY = 0;
+
+        this.view = new Rectangle(posX, posY);
+        this.velocity = new Point2D(velX, velY);
         this.name = name;
         this.alive = true;
+        setImage("c:\\imageDrone.png");
     }
 
     public DroneObject() {
@@ -29,15 +40,37 @@ public abstract class DroneObject {
         this.velocity = new Point2D(0, 1);
         this.name = "Drone";
         this.alive = true;
+        setImage("c:\\imageDrone.png");
+    }
+
+    public void setImage(Image i) {
+        image = i;
+    }
+
+    public void setImage(String filename) {
+        Image i = null;
+        try {
+            i = new Image(new FileInputStream(filename));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Created image");
+        setImage(i);
     }
 
     public Node getView() {
         return view;
     }
 
-    public void setView(Node view) {
-        this.view = view;
+    public double getRotate() {
+        return view.getRotate();
     }
+
+    public void setPos(int x, int y) {
+        getView().setTranslateX(x);
+        getView().setTranslateY(y);
+    }
+
 
     public Point2D getVelocity() {
         return velocity;
@@ -68,18 +101,6 @@ public abstract class DroneObject {
         this.collidingWith = collidingWith;
     }
 
-    public double getX() {
-        return getView().getTranslateX();
-    }
-
-    public double getY() {
-        return getView().getTranslateY();
-    }
-
-    public double getRotate() {
-        return view.getRotate();
-    }
-
     public String getName() {
         return name;
     }
@@ -94,6 +115,8 @@ public abstract class DroneObject {
     public void update() {
         view.setTranslateX(view.getTranslateX() + velocity.getX());
         view.setTranslateY(view.getTranslateY() + velocity.getY());
+
+
     }
 
     public void rotateAngle(int i) {
@@ -109,10 +132,9 @@ public abstract class DroneObject {
     }
 
     public boolean isColliding(Arena arena) {
-        Bounds bounds = getView().getBoundsInParent();
-
-        double x = bounds.getMaxX();
-        double y = bounds.getMaxY();
+        Bounds boundsInScene = getView().localToScene(getView().getBoundsInLocal());
+        double x = boundsInScene.getMaxX();
+        double y = boundsInScene.getMaxY();
 
         setColliding(false);
         setCollidingWith(null);
@@ -144,7 +166,9 @@ public abstract class DroneObject {
         }
     }
 
-    public abstract void render(GraphicsContext gc);
+    public void render(GraphicsContext gc) {
+        gc.drawImage(image, getView().getTranslateX(),getView().getTranslateY(),100,100);
+    }
 
     @Override
     public String toString() {
@@ -158,5 +182,4 @@ public abstract class DroneObject {
                 '}';
         return s;
     }
-
 }

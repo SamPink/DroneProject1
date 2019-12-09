@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import uk.reading.ac.uk.spink.drone.DroneArena;
+import uk.reading.ac.uk.spink.droneSimulation.Drones.Drone;
 import uk.reading.ac.uk.spink.droneSimulation.Drones.ImageDrone;
 
 
@@ -29,15 +29,15 @@ public class DroneGame extends Application {
         Scene theScene = new Scene( root );
         theStage.setScene( theScene );
 
-        Canvas canvas = new Canvas( 512, 512 );
-        root.getChildren().add( canvas );
+        Canvas canvas = new Canvas( 512, 512 ); //Canvas is in image that can be drawn on
+        root.getChildren().add( canvas ); // add canvas to root element
 
         gc = canvas.getGraphicsContext2D();
 
         arena = new Arena();
 
-        arena.addGameObject(new ImageDrone("C:\\ImageDrone.png"),300,200 );
-
+        arena.addGameObject(new Drone(),300,200 );
+        arena.moveDronesRandom();
 
         AnimationTimer timer = new AnimationTimer() {
             Long lastNanoTime = System.nanoTime();
@@ -57,7 +57,6 @@ public class DroneGame extends Application {
     }
 
     private void onUpdate() {
-        gc.clearRect(0,0,512,520);
-       arena.getDrones().forEach(droneObject -> droneObject.render(gc));
+        arena.update(gc);
     }
 }

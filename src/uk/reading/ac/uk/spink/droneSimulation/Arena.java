@@ -59,15 +59,13 @@ public class Arena {
         drones.add(d);
     }
 
-    void addGameObject(DroneObject object, double x, double y) {
-        object.getView().setTranslateX(x);
-        object.getView().setTranslateY(y);
-        object.rotateRandom();
+    void addGameObject(DroneObject object, int x, int y) {
+        object.setPos(x,y);
         drones.add(object);
     }
 
-    public void update(Pane root) {
-        root.getChildren().clear();
+    public void update(GraphicsContext gc) {
+        gc.clearRect(0,0,512,520);
 
         for (DroneObject d : drones) { //loop through drones to check on bounds
             if(d.isColliding(this)){
@@ -75,29 +73,15 @@ public class Arena {
             }
 
             d.update();
-            root.getChildren().add(d.getView());
+            d.render(gc);
         }
     }
 
-    public void moveDrones() {
+    public void moveDronesRandom() {
         for (DroneObject drone : drones) {
             Random r = new Random();
             drone.rotateAngle(r.nextInt(360));
         }
-    }
-
-    public String logToScreen(){
-        String s = "Drones\n";
-
-        for (DroneObject d: drones) {
-            s += "Drone " + d.getName() +
-            " Speed " + d.getVelocity().toString() +
-            " Position " + d.getX() + "," + d.getY() +
-            "\n";
-        }
-
-
-        return s;
     }
 
     @Override
